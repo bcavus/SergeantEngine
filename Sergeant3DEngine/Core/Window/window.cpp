@@ -1,7 +1,8 @@
 #include "window.h"
 
 Window::Window(int height, int width) {
-	Window::SetProperties(height, width);
+	this->SetProperties(height, width);
+	this->Init();
 }
 
 Window::~Window() {
@@ -19,14 +20,14 @@ void Window::Init()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // We don't want the old OpenGL 
 
-	GLFWwindow* gl_window = glfwCreateWindow(this->m_width, this->m_height, "GL Window", NULL, NULL);
+	this->m_gl_window = glfwCreateWindow(this->m_width, this->m_height, "Sergeant3DEngine Window", NULL, NULL);
 
-	if (!gl_window) {
+	if (!this->m_gl_window) {
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
 
-	glfwMakeContextCurrent(gl_window);
+	glfwMakeContextCurrent(this->m_gl_window);
 	glewExperimental = true;
 	glfwSwapInterval(1);
 
@@ -35,79 +36,57 @@ void Window::Init()
 		exit(EXIT_FAILURE);
 	}
 
-	GLuint vertex_array_objectID;
-	glGenVertexArrays(1, &vertex_array_objectID);
-	glBindVertexArray(vertex_array_objectID);
+	this->m_close_flag = false;
+}
 
-	static const GLfloat gl_vertext_buffer_data[] = {
-		-1.0f, -1.0f, 0.0f,
-		1.0f, -1.0f, 0.0f,
-		0.0f,  1.0f, 0.0f,
-	};
+void Window::Dispose()
+{
+	glfwDestroyWindow(this->m_gl_window);
+	glfwTerminate();
+	exit(EXIT_SUCCESS);
+}
 
-	GLuint vertex_buffer;
-
-	glGenBuffers(1, &vertex_buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(gl_vertext_buffer_data), gl_vertext_buffer_data, GL_STATIC_DRAW);
-
-	Shader *simple_shader = new Shader("../../../Resource/Triangle/test"); //TODO: ResourceManager
-	
-	while (!glfwWindowShouldClose(gl_window)) {
-		this->m_aspectRatio = this->CalculateAspectRatio();
-
+void Window::Update()
+{
+	while (!glfwWindowShouldClose(this->m_gl_window)) {
 		/*
 			- Preparing View
 		*/
-		glfwGetFramebufferSize(gl_window, &this->m_width, &this->m_height);
+		glfwGetFramebufferSize(this->m_gl_window, &this->m_width, &this->m_height);
 		glViewport(0, 0, this->m_width, this->m_height);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		/*
-			- Draw 
-		*/
-		this->Draw(vertex_buffer, simple_shader);
 
 		/*
 			- Swapping Buffers
 		*/
-		glfwSwapBuffers(gl_window);
-		
+		glfwSwapBuffers(this->m_gl_window);
+
 		/*
 			- Handle Events
 		*/
 
 		glfwPollEvents();
 	}
-
-	delete simple_shader;
-
-	glfwDestroyWindow(gl_window);
-	glfwTerminate();
-	exit(EXIT_SUCCESS);
 }
 
-void Window::Draw(GLuint vertex_buffer, Shader *shader) {
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
-	glVertexAttribPointer(
-		0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
-		3,                  // size
-		GL_FLOAT,           // type
-		GL_FALSE,           // normalized?
-		0,                  // stride
-		(void*)0            // array buffer offset
-	);
-	
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-	glDisableVertexAttribArray(0);
+void Window::Close()
+{
+	this->m_close_flag = true;
+}
 
-	shader->Bind();
+void Window::Refresh()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+bool Window::isOpen()
+{
+	return !this->m_close_flag;
 }
 
 void Window::SetProperties(int height, int width) {
 	this->m_height = height;
 	this->m_width = width;
+	this->m_aspectRatio = this->CalculateAspectRatio();
 }
 
 const float Window::CalculateAspectRatio()

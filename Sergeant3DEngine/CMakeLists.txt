@@ -25,6 +25,10 @@ add_library(
     Core/Window/window.cpp
     Core/Shader/shader.h
     Core/Shader/shader.cpp
+    Core/Vertex/vertex.h
+    Core/Vertex/vertex.cpp
+    Core/Mesh/mesh.h
+    Core/Mesh/mesh.cpp
  )
 
  add_library(
