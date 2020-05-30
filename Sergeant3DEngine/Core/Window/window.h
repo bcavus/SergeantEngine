@@ -3,28 +3,32 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "glm.hpp"
-#include "../Shader/shader.h"
 
 #ifndef WINDOW_H
 #define WINDOW_H
 
 class Window {
 private:
+	int m_close_flag;
 	float m_aspectRatio;
+	GLFWwindow* m_gl_window;
 
 public:
 	int m_height;
 	int m_width;
 
 private:
-	void Draw(GLuint vertex_buffer, Shader *shader);
+	void Init();
+	void Dispose();
 
 public:
 	Window(int height, int width);
 	~Window();
 
-	void Init();
+	void Update();
+	void Close();
+	void Refresh();
+	bool isOpen();
 	void SetProperties(const int height, const int width);
 	const float CalculateAspectRatio();
 };
