@@ -46,11 +46,11 @@ build CMakeFiles\core.dir\Core\Window\window.cpp.obj: CXX_COMPILER__core ..\..\.
   TARGET_COMPILE_PDB = CMakeFiles\core.dir\core.pdb
   TARGET_PDB = core.pdb
 
-build CMakeFiles\core.dir\Core\Loader\shader.cpp.obj: CXX_COMPILER__core ..\..\..\Core\Loader\shader.cpp || cmake_object_order_depends_target_core
+build CMakeFiles\core.dir\Core\Shader\shader.cpp.obj: CXX_COMPILER__core ..\..\..\Core\Shader\shader.cpp || cmake_object_order_depends_target_core
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   INCLUDES = -I..\..\..\External\glew-2.1.0\include -I..\..\..\External\glfw-3.3.2\include -I..\..\..\External\glm-0.9.9.8\glm
   OBJECT_DIR = CMakeFiles\core.dir
-  OBJECT_FILE_DIR = CMakeFiles\core.dir\Core\Loader
+  OBJECT_FILE_DIR = CMakeFiles\core.dir\Core\Shader
   TARGET_COMPILE_PDB = CMakeFiles\core.dir\core.pdb
   TARGET_PDB = core.pdb
 
@@ -62,7 +62,7 @@ build CMakeFiles\core.dir\Core\Loader\shader.cpp.obj: CXX_COMPILER__core ..\..\.
 #############################################
 # Link the static library core.lib
 
-build core.lib: CXX_STATIC_LIBRARY_LINKER__core CMakeFiles\core.dir\Core\Window\window.cpp.obj CMakeFiles\core.dir\Core\Loader\shader.cpp.obj
+build core.lib: CXX_STATIC_LIBRARY_LINKER__core CMakeFiles\core.dir\Core\Window\window.cpp.obj CMakeFiles\core.dir\Core\Shader\shader.cpp.obj
   LANGUAGE_COMPILE_FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64
   OBJECT_DIR = CMakeFiles\core.dir

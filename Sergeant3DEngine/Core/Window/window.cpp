@@ -1,5 +1,4 @@
 #include "window.h"
-#include "../Loader/shader.h"
 
 Window::Window(int height, int width) {
 	Window::SetProperties(height, width);
@@ -52,9 +51,8 @@ void Window::Init()
 	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(gl_vertext_buffer_data), gl_vertext_buffer_data, GL_STATIC_DRAW);
 
-	Shader* simpleShader = new Shader();
-	GLuint programID = simpleShader->LoadShaders("./Core/Shaders/Triangle/test.vs", "./Core/Shaders/Triangle/test.fs");
-
+	Shader *simple_shader = new Shader("../../../Resource/Triangle/test"); //TODO: ResourceManager
+	
 	while (!glfwWindowShouldClose(gl_window)) {
 		this->m_aspectRatio = this->CalculateAspectRatio();
 
@@ -68,7 +66,7 @@ void Window::Init()
 		/*
 			- Draw 
 		*/
-		this->Draw(vertex_buffer, programID);
+		this->Draw(vertex_buffer, simple_shader);
 
 		/*
 			- Swapping Buffers
@@ -82,12 +80,14 @@ void Window::Init()
 		glfwPollEvents();
 	}
 
+	delete simple_shader;
+
 	glfwDestroyWindow(gl_window);
 	glfwTerminate();
 	exit(EXIT_SUCCESS);
 }
 
-void Window::Draw(GLuint vertex_buffer, GLuint programID) {
+void Window::Draw(GLuint vertex_buffer, Shader *shader) {
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
 	glVertexAttribPointer(
@@ -102,8 +102,7 @@ void Window::Draw(GLuint vertex_buffer, GLuint programID) {
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 	glDisableVertexAttribArray(0);
 
-	glUseProgram(programID);
-
+	shader->Bind();
 }
 
 void Window::SetProperties(int height, int width) {

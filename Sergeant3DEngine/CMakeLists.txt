@@ -23,8 +23,8 @@ add_library(
     core
     Core/Window/window.h
     Core/Window/window.cpp
-    Core/Loader/shader.h
-    Core/Loader/shader.cpp
+    Core/Shader/shader.h
+    Core/Shader/shader.cpp
  )
 
  add_library(

@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "glm.hpp"
+#include "../Shader/shader.h"
 
 #ifndef WINDOW_H
 #define WINDOW_H
@@ -17,7 +18,7 @@ public:
 	int m_width;
 
 private:
-	void Draw(GLuint vertex_buffer, GLuint programID);
+	void Draw(GLuint vertex_buffer, Shader *shader);
 
 public:
 	Window(int height, int width);
