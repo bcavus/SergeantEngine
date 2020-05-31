@@ -24,6 +24,7 @@ void Shader::Init()
 	}
 
 	glBindAttribLocation(this->m_program, 0, "position");
+	glBindAttribLocation(this->m_program, 1, "texture_coordinate");
 
 	glLinkProgram(this->m_program);
 	CheckShaderError(this->m_program, GL_LINK_STATUS, true, "[Shader] Program Link FAILED!");

@@ -1,3 +1,4 @@
+#include <vector>
 #include "GL/glew.h"
 #include "../Vertex/vertex.h"
 
@@ -9,10 +10,13 @@ public:
 	Mesh(Vertex *vertices, unsigned int number_of_vertices);
 	~Mesh();
 
+	void Init(Vertex* vertices, unsigned int number_of_vertices);
 	void Draw();
 private:
 	enum {
 		Position_Vb,
+		TexCoord_Vb,
+
 		NUM_BUFFER
 	};
 	GLuint m_vertex_array_object;
