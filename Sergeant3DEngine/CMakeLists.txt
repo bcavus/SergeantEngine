@@ -29,13 +29,20 @@ add_library(
     Core/Vertex/vertex.cpp
     Core/Mesh/mesh.h
     Core/Mesh/mesh.cpp
- )
+    Core/Texture/texture.h
+    Core/Texture/texture.cpp)
 
  add_library(
      support
      Support/helper.h
-     Support/helper.cpp
- )
+     Support/helper.cpp)
+
+# Add external libraries
+add_library(
+    external
+    External/stb_image/stb_image.h
+    External/stb_image/stb_image.cpp
+)
 
 # Add source to this project's executable.
 add_executable(Sergeant3DEngine "Sergeant3DEngine.h" "Sergeant3DEngine.cpp" ${PROJECT_SOURCES})
@@ -44,7 +51,7 @@ add_executable(Sergeant3DEngine "Sergeant3DEngine.h" "Sergeant3DEngine.cpp" ${PR
 target_link_libraries(Sergeant3DEngine ${OPENGL_LIBRARIES} glew32 glfw3dll)
 
 # Link local target executable and libraries to our application
-target_link_libraries(Sergeant3DEngine core support)
+target_link_libraries(Sergeant3DEngine core support external)
 
 
 # TODO: Add tests and install targets if needed.

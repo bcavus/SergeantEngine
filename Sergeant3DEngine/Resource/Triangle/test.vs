@@ -1,8 +1,12 @@
 #version 330 core
 
-layout(location = 0) in vec3 vertexPosition_modelspace;
+layout(location = 0) in vec3 position;
+layout(location = 1) in vec2 texture_coordinate;
 
-void main(){
-  gl_Position.xyz = vertexPosition_modelspace;
-  gl_Position.w = 1.0;
-}
+out vec2 v_tex_coord;
+
+void main()
+{
+  gl_Position = vec4(position, 0.75);
+  v_tex_coord = texture_coordinate;
+};

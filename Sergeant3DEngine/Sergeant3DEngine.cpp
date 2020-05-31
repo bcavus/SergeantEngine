@@ -4,8 +4,10 @@
 #include "Sergeant3DEngine.h"
 #include "Core/Window/Window.h"
 #include "Core/Vertex/vertex.h"
-#include "Core/Mesh/mesh.h"
 #include "Core/Shader/shader.h"
+#include "Core/Texture/texture.h"
+#include "Core/Mesh/mesh.h"
+
 
 using namespace std;
 
@@ -16,14 +18,18 @@ int main()
 	Window* window = new Window(screen_height, screen_width);
 
 	Vertex triangle_vertices[] = {
-		Vertex(glm::vec3(-0.5, -0.5, 0)),
-		Vertex(glm::vec3(0, 0.5, 0)),
-		Vertex(glm::vec3(0.5, -0.5, 0)),
+		Vertex(glm::vec3(-0.5, -0.5, 0), glm::vec2(0, 0)),
+		Vertex(glm::vec3(0, 0.5, 0), glm::vec2(1.0, 0)),
+		Vertex(glm::vec3(0.5, -0.5, 0), glm::vec2(1.0, 1.0)),
 	};
+
+	Shader triangle_shader("../../../Resource/Triangle/test");
+
+	Texture triangle_texture("../../../Resource/Textures/test.jpg");
 
 	Mesh triangle_mesh(triangle_vertices, sizeof(triangle_vertices) / sizeof(triangle_vertices[0]));
 
-	Shader triangle_shader("../../../Resource/Triangle/test");
+	
 
 	cout << "Window Properties Updated : " << window->m_height << " - " << window->m_width << endl;
 
@@ -33,7 +39,9 @@ int main()
 
 		window->Refresh();
 
+		
 		triangle_shader.Bind();
+		triangle_texture.Bind(0);
 		triangle_mesh.Draw();
 
 		window->Update();
