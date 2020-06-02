@@ -8,7 +8,7 @@ Texture::Texture(const std::string& file_name)
 Texture::~Texture()
 {
 	this->Dispose();
-	delete this;
+	//delete this;
 }
 
 void Texture::Init(const std::string& image_file)

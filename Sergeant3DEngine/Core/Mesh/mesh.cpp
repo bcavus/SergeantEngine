@@ -10,7 +10,7 @@ Mesh::~Mesh()
 {
 	glDisableVertexAttribArray(0);
 	glDeleteVertexArrays(1, &m_vertex_array_object);
-	delete this;
+	//delete this;
 }
 
 void Mesh::Init(Vertex* vertices, unsigned int number_of_vertices)

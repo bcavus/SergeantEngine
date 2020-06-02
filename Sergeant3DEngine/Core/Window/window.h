@@ -25,7 +25,9 @@ public:
 	Window(int height, int width);
 	~Window();
 
-	void Update();
+	void UpdateViewport();
+	void SwapBuffers();
+	void PollEvents();
 	void Close();
 	void Refresh();
 	bool isOpen();

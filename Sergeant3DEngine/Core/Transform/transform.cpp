@@ -9,7 +9,7 @@ Transform::Transform(glm::vec3& position, glm::vec3& rotation, glm::vec3& scale)
 
 Transform::~Transform()
 {
-	delete this;
+	// delete this;
 }
 
 glm::mat4 Transform::TransformModel() const

@@ -46,26 +46,29 @@ void Window::Dispose()
 	exit(EXIT_SUCCESS);
 }
 
-void Window::Update()
+void Window::UpdateViewport()
 {
-	while (!glfwWindowShouldClose(this->m_gl_window)) {
-		/*
-			- Preparing View
-		*/
-		glfwGetFramebufferSize(this->m_gl_window, &this->m_width, &this->m_height);
-		glViewport(0, 0, this->m_width, this->m_height);
+	/*
+		- Preparing View
+	*/
+	glfwGetFramebufferSize(this->m_gl_window, &this->m_width, &this->m_height);
+	glViewport(0, 0, this->m_width, this->m_height);
+}
 
-		/*
-			- Swapping Buffers
-		*/
-		glfwSwapBuffers(this->m_gl_window);
+void Window::SwapBuffers()
+{
+	/*
+		- Swapping Buffers
+	*/
+	glfwSwapBuffers(this->m_gl_window);
+}
 
-		/*
-			- Handle Events
-		*/
-
-		glfwPollEvents();
-	}
+void Window::PollEvents()
+{
+	/*
+		- Handle Events
+	*/
+	glfwPollEvents();
 }
 
 void Window::Close()
@@ -80,7 +83,7 @@ void Window::Refresh()
 
 bool Window::isOpen()
 {
-	return !this->m_close_flag;
+	return !(this->m_close_flag | glfwWindowShouldClose(this->m_gl_window));
 }
 
 void Window::SetProperties(int height, int width) {
