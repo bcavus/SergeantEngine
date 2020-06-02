@@ -8,7 +8,7 @@ Vertex::Vertex(const glm::vec3 &position, const glm::vec2 &tex_coord)
 
 Vertex::~Vertex()
 {
-	delete this;
+	//delete this;
 }
 
 const glm::vec3& Vertex::Position() const

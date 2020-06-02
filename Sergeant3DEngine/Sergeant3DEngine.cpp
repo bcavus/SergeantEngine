@@ -35,16 +35,28 @@ int main()
 
 	Transform transform(glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1,1,1));
 
+	float transform_counter = 0.0f;
+
 	while (window->isOpen()) {
 
+		window->UpdateViewport();
 		window->Refresh();
 
 		triangle_shader.Bind();
-		triangle_texture.Bind(0);
+		
+		transform.SetPosition(glm::vec3(cosf(transform_counter), cosf(transform_counter), cosf(transform_counter)));
+		transform.SetRotation(glm::vec3(cosf(transform_counter), cosf(transform_counter), cosf(transform_counter)));
+		transform.SetScale(glm::vec3(cosf(transform_counter * 1.5f)));
+
 		triangle_shader.Update(transform);
+
+		triangle_texture.Bind(0);
 		triangle_mesh.Draw();
 
-		window->Update();
+		transform_counter += 0.01f;
+
+		window->SwapBuffers();
+		window->PollEvents();
 	}
 
 	window->Close();

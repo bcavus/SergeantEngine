@@ -15,7 +15,7 @@ Shader::~Shader()
 {
 	this->Dispose();
 
-	delete this;
+	//delete this;
 }
 
 void Shader::Init()
