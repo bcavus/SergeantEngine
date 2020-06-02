@@ -1,4 +1,5 @@
 #include "shader.h"
+#include "shader.h"
 
 Shader::Shader(const std::string& shader_file) {
 	this->m_program = glCreateProgram();
@@ -31,6 +32,15 @@ void Shader::Init()
 
 	glValidateProgram(this->m_program);
 	CheckShaderError(this->m_program, GL_VALIDATE_STATUS, true, "[Shader] Program Validation FAILED!");
+
+	this->m_uniforms[UniformTypes::Transform_U] = glGetUniformLocation(this->m_program, "transform");
+}
+
+void Shader::Update(const Transform& transform)
+{
+	glm::mat4 transform_model = transform.TransformModel();
+
+	glUniformMatrix4fv(this->m_uniforms[Transform_U], 1, GL_FALSE, &transform_model[0][0]);
 }
 
 void Shader::Dispose()

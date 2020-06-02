@@ -30,7 +30,9 @@ add_library(
     Core/Mesh/mesh.h
     Core/Mesh/mesh.cpp
     Core/Texture/texture.h
-    Core/Texture/texture.cpp)
+    Core/Texture/texture.cpp
+    Core/Transform/transform.h
+    Core/Transform/transform.cpp)
 
  add_library(
      support
