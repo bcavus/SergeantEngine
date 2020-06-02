@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "glm.hpp"
+#include "../Transform/transform.h"
 
 #ifndef SHADER_H
 #define SHADER_H
@@ -16,6 +17,11 @@ enum ShaderType {
 	COUNT = 3,
 };
 
+enum UniformTypes {
+	Transform_U,
+	COUNT_U = 1,
+};
+
 class Shader {
 public:
 	Shader(const std::string& shader_file);
@@ -24,6 +30,7 @@ public:
 	void Bind();
 	void Dispose();
 	void Init();
+	void Update(const Transform& transform);
 	GLuint CreateShader(const std::string& file_path, GLenum shader_type);
 
 private:
@@ -33,6 +40,7 @@ private:
 private:
 	GLuint m_program;
 	GLuint m_shaders[ShaderType::COUNT];
+	GLuint m_uniforms[UniformTypes::COUNT_U];
 
 };
 
