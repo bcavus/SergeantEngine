@@ -9,6 +9,6 @@ out vec2 v_tex_coord;
 
 void main()
 {
-  gl_Position = transform * vec4(position, 0.75);
+  gl_Position = transform * vec4(position, 1.00);
   v_tex_coord = texture_coordinate;
 };

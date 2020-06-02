@@ -32,7 +32,10 @@ add_library(
     Core/Texture/texture.h
     Core/Texture/texture.cpp
     Core/Transform/transform.h
-    Core/Transform/transform.cpp)
+    Core/Transform/transform.cpp
+    Core/Camera/camera.h
+    Core/Camera/camera.cpp
+    )
 
  add_library(
      support
