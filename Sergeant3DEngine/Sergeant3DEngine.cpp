@@ -8,6 +8,7 @@
 #include "Core/Texture/texture.h"
 #include "Core/Mesh/mesh.h"
 #include "Core/Transform/transform.h"
+#include "Core/Camera/camera.h"
 
 using namespace std;
 
@@ -35,6 +36,8 @@ int main()
 
 	Transform transform(glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(1,1,1));
 
+	Camera camera(glm::vec3(0.0f, 0.0f, 4.0f), 100.0f, 16.0 / 9.0, 0.01f, 1000.0f);
+	
 	float transform_counter = 0.0f;
 
 	while (window->isOpen()) {
@@ -44,11 +47,11 @@ int main()
 
 		triangle_shader.Bind();
 		
-		transform.SetPosition(glm::vec3(cosf(transform_counter), cosf(transform_counter), cosf(transform_counter)));
-		transform.SetRotation(glm::vec3(cosf(transform_counter), cosf(transform_counter), cosf(transform_counter)));
-		transform.SetScale(glm::vec3(cosf(transform_counter * 1.5f)));
+		transform.SetPosition(glm::vec3(cosf(transform_counter), sinf(transform_counter * 0.4), sinf(transform_counter)));
+		transform.SetRotation(glm::vec3(sinf(transform_counter * 0.5), cosf(transform_counter * 0.5), cosf(transform_counter)));
+		transform.SetScale(glm::vec3(1, 0.5, 0.5));
 
-		triangle_shader.Update(transform);
+		triangle_shader.Update(transform, camera);
 
 		triangle_texture.Bind(0);
 		triangle_mesh.Draw();

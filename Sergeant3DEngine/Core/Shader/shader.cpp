@@ -1,5 +1,5 @@
 #include "shader.h"
-#include "shader.h"
+#include <gtx/string_cast.hpp>
 
 Shader::Shader(const std::string& shader_file) {
 	this->m_program = glCreateProgram();
@@ -36,11 +36,19 @@ void Shader::Init()
 	this->m_uniforms[UniformTypes::Transform_U] = glGetUniformLocation(this->m_program, "transform");
 }
 
-void Shader::Update(const Transform& transform)
+void Shader::Update(const Transform& transform, const Camera& camera)
 {
-	glm::mat4 transform_model = transform.TransformModel();
+	glm::mat4 view_projection = camera.ViewProjection();
+	glm::mat4 transformation  = transform.TransformModel();
 
-	glUniformMatrix4fv(this->m_uniforms[Transform_U], 1, GL_FALSE, &transform_model[0][0]);
+	glm::mat4 view_model = view_projection * transformation;
+
+	std::cout << "[View_projection] : " << glm::to_string(view_projection) << std::endl;
+	std::cout << "[Transformation Matrix] : " << glm::to_string(transformation) << std::endl;
+
+	std::cout << "[View Model Matrix]  : " << glm::to_string(view_model) << std::endl;
+
+	glUniformMatrix4fv(this->m_uniforms[Transform_U], 1, GL_FALSE, &view_model[0][0]);
 }
 
 void Shader::Dispose()

@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 #include "glm.hpp"
 #include "../Transform/transform.h"
+#include "../Camera/camera.h"
 
 #ifndef SHADER_H
 #define SHADER_H
@@ -30,7 +31,7 @@ public:
 	void Bind();
 	void Dispose();
 	void Init();
-	void Update(const Transform& transform);
+	void Update(const Transform& transform, const Camera& camera);
 	GLuint CreateShader(const std::string& file_path, GLenum shader_type);
 
 private:
