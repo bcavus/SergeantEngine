@@ -47,6 +47,8 @@ add_library(
     external
     External/stb_image/stb_image.h
     External/stb_image/stb_image.cpp
+    External/obj_loader/obj_loader.h
+    External/obj_loader/obj_loader.cpp
 )
 
 # Add source to this project's executable.

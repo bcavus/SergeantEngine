@@ -1,5 +1,7 @@
+#include <iostream>
 #include <vector>
 #include "GL/glew.h"
+#include "../../External/obj_loader/obj_loader.h"
 #include "../Vertex/vertex.h"
 
 #ifndef  MESH_H
@@ -7,15 +9,18 @@
 
 class Mesh {
 public:
-	Mesh(Vertex *vertices, unsigned int number_of_vertices);
+	Mesh(Vertex *vertices, unsigned int number_of_vertices, unsigned int* indices, unsigned int number_of_indices);
+	Mesh(const std::string &filename);
 	~Mesh();
 
-	void Init(Vertex* vertices, unsigned int number_of_vertices);
+	void Init(Vertex* vertices, unsigned int number_of_vertices, unsigned int* indices, unsigned int number_of_indices);
+	void InitModel(const IndexedModel &model);
 	void Draw();
 private:
 	enum {
 		Position_Vb,
 		TexCoord_Vb,
+		Index_Vb,
 
 		NUM_BUFFER
 	};

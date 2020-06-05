@@ -30,8 +30,8 @@ void Window::Init()
 	glfwMakeContextCurrent(this->m_gl_window);
 	glewExperimental = true;
 	glfwSwapInterval(1);
-	glFrontFace(GL_CW);
 	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 	glEnable(GL_DEPTH_TEST);
 
 	if (glewInit() != GLEW_OK) {
