@@ -20,6 +20,7 @@ private:
 	enum {
 		Position_Vb,
 		TexCoord_Vb,
+		Normal_Vb,
 		Index_Vb,
 
 		NUM_BUFFER
