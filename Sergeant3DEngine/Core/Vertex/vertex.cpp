@@ -1,9 +1,10 @@
 #include "vertex.h"
 
-Vertex::Vertex(const glm::vec3 &position, const glm::vec2 &tex_coord)
+Vertex::Vertex(const glm::vec3 &position, const glm::vec2 &tex_coord, const glm::vec3& normal)
 {
 	this->m_position = position;
 	this->m_tex_coord = tex_coord;
+	this->m_normals = normal;
 }
 
 Vertex::~Vertex()
@@ -19,5 +20,10 @@ const glm::vec3& Vertex::Position() const
 const glm::vec2& Vertex::TexCoord() const
 {
 	return this->m_tex_coord;
+}
+
+const glm::vec3& Vertex::Normal() const
+{
+	return this->m_normals;
 }
 

@@ -24,12 +24,14 @@ void Mesh::Init(Vertex* vertices, unsigned int number_of_vertices, unsigned int*
 {
 	std::vector<glm::vec3> positions;
 	std::vector<glm::vec2> texture_coordinates;
+	std::vector<glm::vec3> normals;
 
 	IndexedModel model;
 
 	for (unsigned int i = 0; i < number_of_vertices; i++) {
 		model.positions.push_back(vertices[i].Position());
 		model.texCoords.push_back(vertices[i].TexCoord());
+		model.normals.push_back(vertices[i].Normal());
 	}
 
 	for (unsigned int i = 0; i < number_of_indices; i++) {
@@ -82,6 +84,12 @@ void Mesh::InitModel(const IndexedModel& model)
 
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_vertex_array_buffer[Normal_Vb]);
+	glBufferData(GL_ARRAY_BUFFER, model.normals.size() * sizeof(model.normals[0]), &model.normals[0], GL_STATIC_DRAW);
+
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_vertex_array_buffer[Index_Vb]);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, model.indices.size() * sizeof(model.indices[0]), &model.indices[0], GL_STATIC_DRAW);
