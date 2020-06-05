@@ -36,32 +36,33 @@ int main()
 
 	Mesh triangle_mesh(triangle_vertices, sizeof(triangle_vertices) / sizeof(triangle_vertices[0]), indices, sizeof(indices) / sizeof(indices[0]));
 
-	Transform transform(glm::vec3(0, 0, 0), glm::vec3(0, 0.5, 0.5), glm::vec3(1, 1, 1));
+	Transform transform(glm::vec3(0, 0, 0), glm::vec3(1, 0.5, 0.5), glm::vec3(1, 1, 1));
 
 	Camera camera(glm::vec3(1.0f, 0.0f, 9.0f), 100.0f, 16.0 / 9.0, 0.01f, 1000.0f);
 	
-	Mesh test_3d_mesh("../../../Resource/Meshes/monkey3.obj");
+	Mesh monkey_3d_model("../../../Resource/Meshes/monkey3.obj");
 
 	float transform_counter = 0.0f;
 
-	while (window->isOpen()) {
+	while (window->isOpen(), transform_counter += 0.01f) {
+
+		float sin_transform = sinf(transform_counter);
+		float cos_transform = cosf(transform_counter);
 
 		window->UpdateViewport();
 		window->Refresh();
 
 		triangle_shader.Bind();
 		
-		transform.SetPosition(glm::vec3(sinf(transform_counter), sinf(transform_counter * 0.4), sinf(transform_counter)));
-		transform.SetRotation(glm::vec3(sinf(transform_counter * 0.1), sinf(transform_counter * 0.5), sinf(transform_counter)));
+		transform.SetPosition(glm::vec3(sin_transform, cos_transform, sin_transform));
+		transform.SetRotation(glm::vec3(sin_transform * 0.1, sin_transform * 0.5, sin_transform));
 		transform.SetScale(glm::vec3(1.6, 1.6, 1.6));
 
 		triangle_shader.Update(transform, camera);
 
 		triangle_texture.Bind(0);
 		//triangle_mesh.Draw();
-		test_3d_mesh.Draw();
-
-		transform_counter += 0.01f;
+		monkey_3d_model.Draw();
 
 		window->SwapBuffers();
 		window->PollEvents();
